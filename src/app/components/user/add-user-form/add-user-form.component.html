@@ -1,0 +1,29 @@
+<form [formGroup]="addUserForm" (ngSubmit)="addUser()" class="px-3 py-4">
+  <!--  Header -->
+  <div class="d-flex justify-content-between align-items-center">
+    <h2>{{title}}</h2>
+    <button type="button" class="btn btn-danger" aria-label="Close"
+            (click)="bsModalRef.hide()">{{closeBtnName}}</button>
+  </div>
+  <hr>
+  <div class="mb-3">
+    <label for="firstNameInput" class="form-label">First name</label>
+    <input type="text" class="form-control" id="firstNameInput" formControlName="firstName"
+           placeholder="Enter first name...">
+  </div>
+  <div class="mb-3">
+    <label for="surnameInput" class="form-label">Surname</label>
+    <input type="text" class="form-control" id="surnameInput" formControlName="lastName" placeholder="Enter surname...">
+  </div>
+  <div class="mb-3">
+    <label for="emailInput" class="form-label">e-mail</label>
+    <input type="text" class="form-control" id="emailInput" formControlName="email" placeholder="Enter an e-mail...">
+  </div>
+  <div class="mb-3">
+    <label for="ageInput" class="form-label">Age</label>
+    <input type="number" class="form-control" id="ageInput" formControlName="age" placeholder="Enter age...">
+  </div>
+  <button type="submit" class="btn btn-success" [disabled]="this.addUserForm.invalid">Add user
+  </button>
+  <!--  <pre>{{addUserForm.value | json}}</pre>-->
+</form>

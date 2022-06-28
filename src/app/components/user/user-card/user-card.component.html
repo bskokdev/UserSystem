@@ -1,0 +1,17 @@
+<div class="my-2 p-2 d-flex justify-content-between align-items-center border">
+  <!--  user details -->
+  <div>
+    <h5>{{user!.firstName}} {{user!.lastName | uppercase}}</h5>
+  </div>
+  <!--  user actions-->
+  <div>
+    <div class="d-flex">
+      <a *ngIf="user!.email" href="mailto: {{user!.email}}" class="btn btn-primary">Send email</a>
+      <h5 *ngIf="!user!.email">no email</h5>
+      <button class="btn btn-primary mx-1" (click)="openUserDetailsModal()">Details</button>
+      <button (click)="deleteUser(user!.id)" class="btn btn-danger">Delete</button>
+      <!--      todo: add UPDATE-->
+    </div>
+  </div>
+</div>
+

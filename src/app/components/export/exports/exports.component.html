@@ -1,0 +1,6 @@
+<div class="exported-users rounded-3 p-3">
+  <div *ngFor="let export of exports | paginate: { itemsPerPage: 3, currentPage: page }">
+    <app-exported-list [export]="export"></app-exported-list>
+  </div>
+  <pagination-controls (pageChange)="page = $event"></pagination-controls>
+</div>

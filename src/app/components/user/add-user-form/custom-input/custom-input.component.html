@@ -1,0 +1,12 @@
+<div class="my-3">
+  <!--  LABEL-->
+  <label for="{{controlName}}" class="form-label">{{label}}</label>
+  <!--  INPUT FIELD-->
+  <input [type]="type" class="form-control" id="{{controlName}}" formControlName="{{controlName}}"
+         placeholder="{{placeholder}}" [formControl]="$any(formGroup).controls[controlName]">
+  <!--  ERROR MESSAGE-->
+  <label class="text-danger"
+         *ngIf="control.touched && !control.valid">
+    {{errorMessage}}
+  </label>
+</div>

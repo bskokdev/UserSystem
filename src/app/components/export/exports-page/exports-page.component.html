@@ -1,0 +1,6 @@
+<div *ngIf="exports.length !== 0" class="p-4">
+  <button class="btn btn-success my-3 px-4 py-2" (click)="onBack()">Back</button>
+  <h2>Exported data</h2>
+  <app-exports [exports]="exports"></app-exports>
+</div>
+
