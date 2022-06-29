@@ -38,7 +38,7 @@ import {CustomInputComponent} from "./components/custom-input/custom-input.compo
     HttpClientModule,
     AppRoutingModule,
     NgxPaginationModule,
-    ModalModule.forRoot()
+    ModalModule.forRoot(),
   ],
   providers: [UserService],
   bootstrap: [AppComponent]

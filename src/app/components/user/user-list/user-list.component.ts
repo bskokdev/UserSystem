@@ -1,4 +1,4 @@
-import {Component, EventEmitter, Input, OnDestroy, OnInit, Output} from '@angular/core';
+import {Component, EventEmitter, Input, OnInit, Output} from '@angular/core';
 import {User} from "../../../models/user";
 import {Router} from "@angular/router";
 import {AddUserFormComponent, AddUserFormResponse} from "../add-user-form/add-user-form.component";
@@ -12,12 +12,15 @@ import {FormControl, Validators} from "@angular/forms";
   templateUrl: './user-list.component.html',
   styleUrls: ['./user-list.component.scss']
 })
-export class UserListComponent implements OnInit, OnDestroy {
+export class UserListComponent implements OnInit {
 
   page: number;
   itemsPerPage: number;
 
   @Input() users: User[];
+
+  @Input()
+  usersForFiltering: User[];
 
   @Output() onExport: EventEmitter<Array<User>> = new EventEmitter<Array<User>>()
 
@@ -31,9 +34,6 @@ export class UserListComponent implements OnInit, OnDestroy {
     this.users = [];
     this.page = 1;
     this.itemsPerPage = 3;
-  }
-
-  ngOnDestroy(): void {
   }
 
   ngOnInit(): void {
@@ -111,4 +111,17 @@ export class UserListComponent implements OnInit, OnDestroy {
     this.onUserAdd.emit(user);
   }
 
+  // applies filter to users array
+  applyFilter(filter: string): void {
+    let filterValueLower: string = filter.toLowerCase();
+    if (filter === "") {
+      this.usersForFiltering = this.users;
+    } else {
+      this.usersForFiltering = this.users.filter((user) =>
+        user.firstName.toLowerCase().includes(filterValueLower) ||
+        user.lastName.toLowerCase().includes(filterValueLower) ||
+        user.email!.includes(filterValueLower)
+      );
+    }
+  }
 }
