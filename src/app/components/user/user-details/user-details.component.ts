@@ -50,7 +50,7 @@ export class UserDetailsComponent implements OnInit {
         firstName: new FormControl(this.user.firstName, [Validators.required]),
         lastName: new FormControl(this.user.lastName, [Validators.required]),
         email: new FormControl(this.user.email, [Validators.required, Validators.email]),
-        age: new FormControl(this.user.age, [Validators.required]),
+        age: new FormControl(this.user.age, [Validators.required, Validators.max(110)]),
       }
     }
 
