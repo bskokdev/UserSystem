@@ -1,6 +1,11 @@
 {
-  "name": "angular-demo",
+  "name": "user-management-system",
   "version": "0.0.0",
+  "author": {
+    "name": "Boris Skok",
+    "email": "skokcmd@gmail.com",
+    "url": "https://skokcmd.com"
+  },
   "scripts": {
     "ng": "ng",
     "start": "ng serve",
