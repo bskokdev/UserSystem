@@ -6,24 +6,49 @@
             (click)="bsModalRef.hide()">{{closeBtnName}}</button>
   </div>
   <hr>
-  <div class="mb-3">
-    <label for="firstNameInput" class="form-label">First name</label>
-    <input type="text" class="form-control" id="firstNameInput" formControlName="firstName"
-           placeholder="Enter first name...">
-  </div>
-  <div class="mb-3">
-    <label for="surnameInput" class="form-label">Surname</label>
-    <input type="text" class="form-control" id="surnameInput" formControlName="lastName" placeholder="Enter surname...">
-  </div>
-  <div class="mb-3">
-    <label for="emailInput" class="form-label">e-mail</label>
-    <input type="text" class="form-control" id="emailInput" formControlName="email" placeholder="Enter an e-mail...">
-  </div>
-  <div class="mb-3">
-    <label for="ageInput" class="form-label">Age</label>
-    <input type="number" class="form-control" id="ageInput" formControlName="age" placeholder="Enter age...">
-  </div>
-  <button type="submit" class="btn btn-success" [disabled]="this.addUserForm.invalid">{{btnText}}
+  <!--  First name input-->
+  <app-custom-input
+    [form]="addUserForm"
+    label="First name"
+    controlName="firstName"
+    type="text"
+    placeholder="Enter first name..."
+    errorMessage="Enter a valid first name!"
+  ></app-custom-input>
+  <!--  Last name input-->
+  <app-custom-input
+    [form]="addUserForm"
+    label="Last name"
+    controlName="lastName"
+    type="text"
+    placeholder="Enter last name..."
+    errorMessage="Enter a valid last name!"
+  ></app-custom-input>
+  <!--  email input-->
+  <app-custom-input
+    [form]="addUserForm"
+    label="E-mail address"
+    controlName="email"
+    type="email"
+    placeholder="Enter an e-mail address..."
+    errorMessage="Enter a valid e-mail!"
+  ></app-custom-input>
+  <!--  age input-->
+  <app-custom-input
+    [form]="addUserForm"
+    label="Age"
+    controlName="age"
+    type="number"
+    placeholder="Enter age..."
+    errorMessage="Enter a valid age!"
+  ></app-custom-input>
+  <!--  submit button -->
+  <button
+    type="submit"
+    class="btn btn-success"
+    [disabled]="this.addUserForm.invalid"
+  >
+    {{btnText}}
   </button>
-  <!--  <pre>{{addUserForm.value | json}}</pre>-->
+  <pre>{{addUserForm.value | json}}</pre>
 </form>

@@ -1,5 +1,5 @@
 import {Component, EventEmitter, OnInit, Output} from '@angular/core';
-import {FormBuilder, FormControl, FormGroup, Validators} from "@angular/forms";
+import {FormBuilder, FormControl, FormGroup} from "@angular/forms";
 import {BsModalRef} from "ngx-bootstrap/modal";
 
 export type AddUserFormResponse = {
@@ -28,10 +28,10 @@ export class AddUserFormComponent implements OnInit {
   constructor(private fb: FormBuilder, public bsModalRef: BsModalRef) {
     // initial form inputs
     this.initialInputs = {
-      firstName: new FormControl('', [Validators.required]),
-      lastName: new FormControl('', [Validators.required]),
-      email: new FormControl('', [Validators.required, Validators.email]),
-      age: new FormControl('', [Validators.required]),
+      firstName: new FormControl(''),
+      lastName: new FormControl(''),
+      email: new FormControl(''),
+      age: new FormControl(''),
     }
   }
 

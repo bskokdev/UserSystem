@@ -1,0 +1,16 @@
+<div class="form-input py-2">
+  <!--  label-->
+  <label for="{{controlName}}Input" class="form-label">{{label}}</label>
+  <!--  input field-->
+  <input
+    [type]="type"
+    class="form-control"
+    [placeholder]="placeholder"
+    id="{{controlName}}Input"
+    [formControl]="$any(form).controls[controlName]"
+  />
+  <!--  error message-->
+  <span
+    class="text-danger"
+    *ngIf="form.get(controlName)!.touched && !form.get(controlName)!.valid">{{errorMessage}}</span>
+</div>

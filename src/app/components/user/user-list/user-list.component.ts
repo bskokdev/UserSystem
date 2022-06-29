@@ -5,6 +5,7 @@ import {AddUserFormComponent, AddUserFormResponse} from "../add-user-form/add-us
 import {BsModalService} from "ngx-bootstrap/modal";
 import {UserDetailsComponent} from "../user-details/user-details.component";
 import {v4 as uuidv4} from 'uuid';
+import {FormControl, Validators} from "@angular/forms";
 
 @Component({
   selector: 'app-user-list',
@@ -63,7 +64,13 @@ export class UserListComponent implements OnInit, OnDestroy {
     const initialState = {
       title: 'Add a new user',
       closeBtnName: 'Close',
-      btnText: 'Add user'
+      btnText: 'Add user',
+      initialInputs: {
+        firstName: new FormControl('', [Validators.required]),
+        lastName: new FormControl('', [Validators.required]),
+        email: new FormControl('', [Validators.required, Validators.email]),
+        age: new FormControl('', [Validators.required, Validators.max(110)]),
+      }
     }
     let modalRef = this.modalService.show(AddUserFormComponent, {class: 'modal-md', initialState});
     modalRef.content!.onSubmit.subscribe((userRes: AddUserFormResponse) => {
