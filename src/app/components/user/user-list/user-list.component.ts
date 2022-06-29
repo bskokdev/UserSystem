@@ -3,8 +3,7 @@ import {User} from "../../../models/user";
 import {Router} from "@angular/router";
 import {AddUserFormComponent} from "../add-user-form/add-user-form.component";
 import {BsModalService} from "ngx-bootstrap/modal";
-
-// import * as _ from 'lodash';
+import {UserDetailsComponent} from "../user-details/user-details.component";
 
 @Component({
   selector: 'app-user-list',
@@ -64,8 +63,21 @@ export class UserListComponent implements OnInit, OnDestroy {
     modalRef.content!.onAddUser.subscribe((user: User) => {
       this.emitAddedUser(user);
       modalRef.hide();
-      console.log(user);
     });
+  }
+
+  // opens modal with user details
+  openUserDetailsModal(userIdx: number): void {
+    const initialState = {
+      user: this.users[userIdx],
+      title: 'User details',
+      closeBtnName: 'Close'
+    };
+    let modalRef = this.modalService.show(UserDetailsComponent, {class: 'modal-lg', initialState});
+    modalRef.content!.onUserDelete.subscribe((id: string) => {
+      this.removeUser(id);
+      modalRef.hide();
+    })
   }
 
   // emits user from this component to parent

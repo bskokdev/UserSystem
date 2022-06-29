@@ -4,9 +4,7 @@ import {BrowserModule} from '@angular/platform-browser';
 import {AppRoutingModule} from './app-routing.module';
 import {AppComponent} from './app.component';
 import {HeaderComponent} from './components/header/header.component';
-import {SidebarComponent} from './components/sidebar/sidebar.component';
 import {UserListComponent} from './components/user/user-list/user-list.component';
-import {UserCardComponent} from 'src/app/components/user/user-card/user-card.component';
 import {ExportsComponent} from './components/export/exports/exports.component';
 import {ExportedListComponent} from './components/export/exported-list/exported-list.component';
 import {ReactiveFormsModule} from "@angular/forms";
@@ -24,9 +22,7 @@ import {ModalModule} from "ngx-bootstrap/modal";
   declarations: [
     AppComponent,
     HeaderComponent,
-    SidebarComponent,
     UserListComponent,
-    UserCardComponent,
     ExportsComponent,
     ExportedListComponent,
     UserDetailsComponent,

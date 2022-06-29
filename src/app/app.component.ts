@@ -7,11 +7,9 @@ import {Component} from '@angular/core';
 })
 export class AppComponent {
   title: string;
-  messageOfTheDay: string;
 
   constructor() {
     this.title = "Angular demo"
-    this.messageOfTheDay = "";
   }
 
 
