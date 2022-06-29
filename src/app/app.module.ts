@@ -4,7 +4,6 @@ import {BrowserModule} from '@angular/platform-browser';
 import {AppRoutingModule} from './app-routing.module';
 import {AppComponent} from './app.component';
 import {HeaderComponent} from './components/header/header.component';
-import {FooterComponent} from 'src/app/components/footer/footer.component';
 import {SidebarComponent} from './components/sidebar/sidebar.component';
 import {UserListComponent} from './components/user/user-list/user-list.component';
 import {UserCardComponent} from 'src/app/components/user/user-card/user-card.component';
@@ -25,7 +24,6 @@ import {ModalModule} from "ngx-bootstrap/modal";
   declarations: [
     AppComponent,
     HeaderComponent,
-    FooterComponent,
     SidebarComponent,
     UserListComponent,
     UserCardComponent,
