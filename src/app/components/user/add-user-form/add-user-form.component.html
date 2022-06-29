@@ -1,4 +1,4 @@
-<form [formGroup]="addUserForm" (ngSubmit)="addUser()" class="px-3 py-4">
+<form [formGroup]="addUserForm" (ngSubmit)="handleSubmit()" class="px-3 py-4">
   <!--  Header -->
   <div class="d-flex justify-content-between align-items-center">
     <h2>{{title}}</h2>
@@ -23,7 +23,7 @@
     <label for="ageInput" class="form-label">Age</label>
     <input type="number" class="form-control" id="ageInput" formControlName="age" placeholder="Enter age...">
   </div>
-  <button type="submit" class="btn btn-success" [disabled]="this.addUserForm.invalid">Add user
+  <button type="submit" class="btn btn-success" [disabled]="this.addUserForm.invalid">{{btnText}}
   </button>
   <!--  <pre>{{addUserForm.value | json}}</pre>-->
 </form>

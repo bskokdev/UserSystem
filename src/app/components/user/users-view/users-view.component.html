@@ -3,6 +3,7 @@
     <app-user-list (onUserRemove)="removeUser($event)"
                    (onExport)="exportUserList($event)"
                    (onUserAdd)="addUser($event)"
+                   (onUserUpdate)="updateUser($event)"
                    [users]="users"></app-user-list>
   </div>
 </div>

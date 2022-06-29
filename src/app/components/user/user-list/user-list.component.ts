@@ -1,9 +1,10 @@
 import {Component, EventEmitter, Input, OnDestroy, OnInit, Output} from '@angular/core';
 import {User} from "../../../models/user";
 import {Router} from "@angular/router";
-import {AddUserFormComponent} from "../add-user-form/add-user-form.component";
+import {AddUserFormComponent, AddUserFormResponse} from "../add-user-form/add-user-form.component";
 import {BsModalService} from "ngx-bootstrap/modal";
 import {UserDetailsComponent} from "../user-details/user-details.component";
+import {v4 as uuidv4} from 'uuid';
 
 @Component({
   selector: 'app-user-list',
@@ -14,7 +15,6 @@ export class UserListComponent implements OnInit, OnDestroy {
 
   page: number;
   itemsPerPage: number;
-  // destroy$: Subject<any>;
 
   @Input() users: User[];
 
@@ -24,6 +24,8 @@ export class UserListComponent implements OnInit, OnDestroy {
 
   @Output() onUserAdd: EventEmitter<User> = new EventEmitter<User>();
 
+  @Output() onUserUpdate: EventEmitter<User> = new EventEmitter<User>();
+
   constructor(private router: Router, private modalService: BsModalService) {
     this.users = [];
     this.page = 1;
@@ -31,8 +33,6 @@ export class UserListComponent implements OnInit, OnDestroy {
   }
 
   ngOnDestroy(): void {
-    // this.destroy$.complete();
-    // this.destroy$.unsubscribe();
   }
 
   ngOnInit(): void {
@@ -41,6 +41,11 @@ export class UserListComponent implements OnInit, OnDestroy {
   // emits an event<userId> to the parent provided by the user-card component
   removeUser(id: string): void {
     this.onUserRemove.emit(id);
+  }
+
+  // emits user onUpdate
+  updateUser(user: User): void {
+    this.onUserUpdate.emit(user);
   }
 
   // emits an export event<Array<UserModel>> of the curr user-list
@@ -57,11 +62,17 @@ export class UserListComponent implements OnInit, OnDestroy {
   openAddUserFormModal() {
     const initialState = {
       title: 'Add a new user',
-      closeBtnName: 'Close'
+      closeBtnName: 'Close',
+      btnText: 'Add user'
     }
     let modalRef = this.modalService.show(AddUserFormComponent, {class: 'modal-md', initialState});
-    modalRef.content!.onAddUser.subscribe((user: User) => {
-      this.emitAddedUser(user);
+    modalRef.content!.onSubmit.subscribe((userRes: AddUserFormResponse) => {
+      const newUser: User = {
+        id: uuidv4(),
+        timestamp: new Date(),
+        ...userRes
+      }
+      this.emitAddedUser(newUser);
       modalRef.hide();
     });
   }
@@ -71,13 +82,21 @@ export class UserListComponent implements OnInit, OnDestroy {
     const initialState = {
       user: this.users[userIdx],
       title: 'User details',
-      closeBtnName: 'Close'
+      closeBtnName: 'Close',
     };
     let modalRef = this.modalService.show(UserDetailsComponent, {class: 'modal-lg', initialState});
+
+    // subs to onUserDelete event
     modalRef.content!.onUserDelete.subscribe((id: string) => {
       this.removeUser(id);
       modalRef.hide();
     })
+
+    // subs to onUserUpdate event
+    modalRef.content!.onUserUpdate.subscribe((user: User) => {
+      this.updateUser(user);
+    })
+
   }
 
   // emits user from this component to parent

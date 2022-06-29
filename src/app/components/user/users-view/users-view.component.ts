@@ -50,6 +50,20 @@ export class UsersViewComponent implements OnInit, OnDestroy {
     this.userService.removeUser(id).pipe(takeUntil(this.destroy$)).subscribe();
   }
 
+  // updates the user
+  updateUser(user: User): void {
+    // finds the index of the user by id
+    const userIndex: number = this.users.findIndex(obj => obj.id == user.id);
+    // updates in-memory user list
+    this.users = [
+      ...this.users.slice(0, userIndex),
+      user,
+      ...this.users.slice(userIndex + 1)
+    ];
+    // sends http PUT method
+    this.userService.updateUser(user).subscribe();
+  }
+
   // adds the current list of users to the exported list
   exportUserList(users: Array<User>): void {
     const newExport: Export = {

@@ -1,7 +1,8 @@
 import {Component, EventEmitter, OnInit, Output} from '@angular/core';
 import {User} from "../../../models/user";
 import {BsModalRef, BsModalService} from "ngx-bootstrap/modal";
-import {AddUserFormComponent} from "../add-user-form/add-user-form.component";
+import {AddUserFormComponent, AddUserFormResponse} from "../add-user-form/add-user-form.component";
+import {FormControl, Validators} from "@angular/forms";
 
 @Component({
   selector: 'app-user-details',
@@ -17,35 +18,57 @@ export class UserDetailsComponent implements OnInit {
   @Output()
   onUserDelete: EventEmitter<string> = new EventEmitter<string>();
 
+  @Output()
+  onUserUpdate: EventEmitter<User> = new EventEmitter<User>();
+
   constructor(public bsModalRef: BsModalRef, private modalService: BsModalService) {
   }
 
   ngOnInit(): void {
   }
 
-  //todo: remove emit
+  // emits id of a deleted user
   emitDeletedUserId(id: string): void {
     this.onUserDelete.emit(id);
   }
 
+  // emits updated user
+  emitUpdatedUser(user: User): void {
+    this.onUserUpdate.emit(user);
+  }
+
   // opens a modal with add user form
-  openAddUserFormModal() {
+  openUpdateUserFormModal() {
     // hides the user details modal
     this.bsModalRef.hide();
+    // initial values passed to the AddUserFormComponent
     const initialState = {
-      //todo: add saved user values
-      title: 'Add a new user',
-      closeBtnName: 'Close'
+      title: 'Edit the user',
+      closeBtnName: 'Close',
+      btnText: "Edit user",
+      initialInputs: {
+        firstName: new FormControl(this.user.firstName, [Validators.required]),
+        lastName: new FormControl(this.user.lastName, [Validators.required]),
+        email: new FormControl(this.user.email, [Validators.required, Validators.email]),
+        age: new FormControl(this.user.age, [Validators.required]),
+      }
     }
 
-    // todo: replace addUserFormComponent with updateUserForm (same id && timestamp, other values editable)
     let modalRef = this.modalService.show(AddUserFormComponent, {class: 'modal-md', initialState});
-    // todo: add PUT req in the user service
-    // modalRef.content!.onAddUser.subscribe((user: User) => {
-    //   this.emitAddedUser(user);
-    //   modalRef.hide();
-    //   console.log(user);
-    // });
+
+    // subs on form submit event
+    modalRef.content!.onSubmit.subscribe((res: AddUserFormResponse) => {
+      // creates an updatedUser with same id & timestamp
+      const updatedUser = {
+        id: this.user.id,
+        timestamp: this.user.timestamp,
+        ...res
+      }
+      // emits updated user
+      this.emitUpdatedUser(updatedUser);
+      // hides update form modal
+      modalRef.hide();
+    });
   }
 
 }

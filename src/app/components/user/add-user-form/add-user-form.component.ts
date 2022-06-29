@@ -1,8 +1,13 @@
 import {Component, EventEmitter, OnInit, Output} from '@angular/core';
 import {FormBuilder, FormControl, FormGroup, Validators} from "@angular/forms";
-import {User} from "../../../models/user";
-import {v4 as uuidv4} from 'uuid';
 import {BsModalRef} from "ngx-bootstrap/modal";
+
+export type AddUserFormResponse = {
+  firstName: string,
+  lastName: string,
+  age: number,
+  email?: string
+}
 
 @Component({
   selector: 'app-add-user-form',
@@ -14,10 +19,20 @@ export class AddUserFormComponent implements OnInit {
   title: string;
   addUserForm: FormGroup;
   closeBtnName: string;
+  btnText: string;
 
-  @Output() onAddUser: EventEmitter<User> = new EventEmitter<User>();
+  initialInputs: Object;
+
+  @Output() onSubmit: EventEmitter<AddUserFormResponse> = new EventEmitter<AddUserFormResponse>();
 
   constructor(private fb: FormBuilder, public bsModalRef: BsModalRef) {
+    // initial form inputs
+    this.initialInputs = {
+      firstName: new FormControl('', [Validators.required]),
+      lastName: new FormControl('', [Validators.required]),
+      email: new FormControl('', [Validators.required, Validators.email]),
+      age: new FormControl('', [Validators.required]),
+    }
   }
 
   ngOnInit(): void {
@@ -26,23 +41,14 @@ export class AddUserFormComponent implements OnInit {
 
   // function to initialize the add-user-form
   initializeForm(): void {
-    this.addUserForm = this.fb.group({
-      firstName: new FormControl('', [Validators.required]),
-      lastName: new FormControl('', [Validators.required]),
-      email: new FormControl('', [Validators.required, Validators.email]),
-      age: new FormControl('', [Validators.required]),
-    });
+    this.addUserForm = this.fb.group(this.initialInputs);
   }
 
   // creates a user object from form values
   // emits the created object as an event<user>
-  addUser(): void {
-    let user: User = {
-      id: uuidv4(),
-      timestamp: new Date(),
-      ...this.addUserForm.value
-    }
-    this.onAddUser.emit(user); // sends data from the form to parent
+  handleSubmit(): void {
+    let res: AddUserFormResponse = this.addUserForm.value;
+    this.onSubmit.emit(res); // sends data from the form to parent
     this.addUserForm.reset(); // resets the form
   }
 }
