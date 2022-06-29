@@ -15,8 +15,8 @@ import {UsersViewComponent} from './components/user/users-view/users-view.compon
 import {AddUserFormComponent} from './components/user/add-user-form/add-user-form.component';
 import {NgxPaginationModule} from "ngx-pagination";
 import {ExportsPageComponent} from './components/export/exports-page/exports-page.component';
-import {CustomInputComponent} from './components/user/add-user-form/custom-input/custom-input.component';
 import {ModalModule} from "ngx-bootstrap/modal";
+import {CustomInputComponent} from "./components/custom-input/custom-input.component";
 
 @NgModule({
   declarations: [
