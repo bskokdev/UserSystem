@@ -31,9 +31,9 @@
   </tbody>
 </table>
 <!-- user list actions (add user, export user list, navigate to exports route -->
-<div class="d-flex justify-content-between align-items-center py-4" *ngIf="users.length > 0">
+<div class="d-flex justify-content-between align-items-center py-4">
   <!--  Pagination control-->
-  <pagination-controls (pageChange)="page = $event" *ngIf="users.length >= itemsPerPage"></pagination-controls>
+  <pagination-controls (pageChange)="page = $event"></pagination-controls>
   <!--  action buttons-->
   <div>
     <button class="btn btn-warning" (click)="goToExportsPage()"><b>View exports</b></button>
